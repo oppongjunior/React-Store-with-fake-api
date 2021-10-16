@@ -1,0 +1,8 @@
+const cartConstants = {
+    FETCH_CART_REQUEST:"FETCH_CART_REQUEST",
+    FETCH_CART_SUCCESS:"FETCH_CART_SUCCESS",
+    FETCH_CART_FAILURE:"FETCH_CART_FAILURE",
+    ADD_CART:"ADD_CART",
+    "REMOVE_CART":"REMOVE_CART"
+}
+export default cartConstants;

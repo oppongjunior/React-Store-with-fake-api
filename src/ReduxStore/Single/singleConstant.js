@@ -1,0 +1,6 @@
+const singleConstants = {
+    FETCH_SINGLE_REQUEST:"FETCH_SINGLE_REQUEST",
+    FETCH_SINGLE_SUCCESS:"FETCH_SINGLE_SUCCESS",
+    FETCH_SINGLE_FAILURE:"FETCH_SINGLE_FAILURE",
+}
+export default singleConstants;
