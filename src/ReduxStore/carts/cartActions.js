@@ -27,6 +27,18 @@ export const removeCart = (id)=>({
     type:cartConstants.REMOVE_CART,
     payload:id
 })
+//increase cart quantity
+export const increaseQuantity = (id)=>({
+    type:cartConstants.INCREASE_QUANTITY,
+    payload:id
+});
+//increase cart quantity
+export const decreaseQuantity = (id)=>({
+    type:cartConstants.DECREASE_QUANTITY,
+    payload:id
+});
+
+
 
 //Product action creator
 export const fetchCart = ()=>{

@@ -10,7 +10,12 @@ function Navbar() {
     useEffect(() => {
         dispatch(fetchCart());
     }, [])
-    let count = cart.length; 
+    
+    let totalCount = 0;
+
+    cart.forEach(element => {
+        totalCount+=element.quantity
+    }); 
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
@@ -25,7 +30,7 @@ function Navbar() {
                                 <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/cart"><span><i className="fas fa-shopping-cart"></i></span> <b>{count}</b></Link>
+                                <Link className="nav-link" to="/cart"><span><i className="fas fa-shopping-cart"></i></span> <b>{totalCount}</b></Link>
                             </li>
                         </ul>
                         <form className="d-flex">

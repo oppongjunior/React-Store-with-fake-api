@@ -1,12 +1,51 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchProduct } from "../../ReduxStore/Single/singleActions.js";
+import { fetchProduct, } from "../../ReduxStore/Single/singleActions.js";
+import {decreaseQuantity, increaseQuantity, removeCart} from "../../ReduxStore/carts/cartActions"
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
 
 export const CartTableItem = (props) => {
   useEffect(() => {
     props.fetchProduct();
   }, []);
   
+  const dispatch = useDispatch();
+  const cartList = useSelector(state => state.cart.cart)
+
+  const removeItemFromCart = ()=>{
+      let toStore = cartList.filter((item)=>item.id !== props.id);
+      localStorage.setItem("cart", JSON.stringify(toStore) )
+    dispatch(removeCart(props.id))
+  }
+  const increaseCartQuantity = ()=>{
+        let toStore = cartList.map((item)=>{
+          if(item.id === props.id){
+              return {
+                  ...item,
+                  quantity:item.quantity+1
+              }
+          }
+          return item
+      });
+      localStorage.setItem("cart", JSON.stringify(toStore) )
+      dispatch(increaseQuantity(props.id))
+  }
+  const decreaseCartQuantity = ()=>{
+        let toStore = cartList.map((item)=>{
+          if(item.id === props.id){
+              return {
+                  ...item,
+                  quantity:item.quantity-1
+              }
+          }
+          return item
+      });
+      localStorage.setItem("cart", JSON.stringify(toStore) )
+      dispatch(decreaseQuantity(props.id))
+  }
+  let subTotal = props.price * props.quantity;
   return (
     <tr>
       <td>
@@ -16,13 +55,14 @@ export const CartTableItem = (props) => {
       <td>$ {props.price}</td>
       <td>
         <div className="d-flex align-items-center">
-          <button className="btn btn-light">+</button>
+          <button className="btn btn-light" onClick={()=>increaseCartQuantity()}>+</button>
           <b className="mx-3">{props.quantity}</b>
-          <button className="btn btn-light">-</button>
+          <button className="btn btn-light" onClick={()=>decreaseCartQuantity()}>-</button>
         </div>
       </td>
+      <td>$ {subTotal}</td>
       <td>
-        <button className="btn btn-danger">
+        <button className="btn btn-danger" onClick={()=>removeItemFromCart()}>
           <i className="fas fa-trash"></i>
         </button>
       </td>
