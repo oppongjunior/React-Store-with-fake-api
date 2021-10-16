@@ -4,6 +4,7 @@ import { fetchProduct, } from "../../ReduxStore/Single/singleActions.js";
 import {decreaseQuantity, increaseQuantity, removeCart} from "../../ReduxStore/carts/cartActions"
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import "./CartTable.css";
 
 
 export const CartTableItem = (props) => {
@@ -46,13 +47,14 @@ export const CartTableItem = (props) => {
       dispatch(decreaseQuantity(props.id))
   }
   let subTotal = props.price * props.quantity;
+  
   return (
     <tr>
       <td>
-        <img src={`${props.image}`} alt="" className="img-fluid w-25" />
+        <img src={`${props.image}`} alt="" className="cart-image" />
       </td>
-      <td>{props.title}</td>
-      <td>$ {props.price}</td>
+      <td><h6 className="h6 table-name-text">{props.title}</h6></td>
+      <td><h6 className="h6 table-name-price text-primary">$ {parseFloat(props.price).toFixed(2)}</h6></td>
       <td>
         <div className="d-flex align-items-center">
           <button className="btn btn-light" onClick={()=>increaseCartQuantity()}>+</button>
@@ -60,7 +62,7 @@ export const CartTableItem = (props) => {
           <button className="btn btn-light" onClick={()=>decreaseCartQuantity()}>-</button>
         </div>
       </td>
-      <td>$ {subTotal}</td>
+      <td className="text-primary">$ {parseFloat(subTotal).toFixed(2)}</td>
       <td>
         <button className="btn btn-danger" onClick={()=>removeItemFromCart()}>
           <i className="fas fa-trash"></i>
