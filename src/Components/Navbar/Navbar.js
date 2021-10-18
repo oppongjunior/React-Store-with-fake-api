@@ -1,6 +1,6 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
-import {Link} from "react-router-dom";
+import {Link,useHistory} from "react-router-dom";
 import { fetchCart } from '../../ReduxStore/carts/cartActions';
 import "./Navbar.css";
 
@@ -16,6 +16,13 @@ function Navbar() {
     cart.forEach(element => {
         totalCount+=element.quantity
     }); 
+
+    const history = useHistory();
+    const [searchText,setSearchText] = useState("");
+    const handleSearch = (e)=>{
+        e.preventDefault();
+        history.replace(`search/${searchText}`);
+    }
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow">
@@ -33,8 +40,8 @@ function Navbar() {
                                 <Link className="nav-link" to="/cart"><span><i className="fas fa-shopping-cart"></i></span> <b>{totalCount}</b></Link>
                             </li>
                         </ul>
-                        <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <form className="d-flex" onSubmit={handleSearch}>
+                            <input className="form-control me-2" type="search" placeholder="Search" value={searchText} onChange={(e)=>setSearchText(e.target.value)}/>
                             <button className="btn btn-outline-light" type="submit">Search</button>
                         </form>
                     </div>
